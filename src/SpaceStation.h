@@ -11,6 +11,7 @@
 #include "Quaternion.h"
 #include "ShipType.h"
 #include "SpaceStationType.h"
+//#include "galaxy/StarSystem.h"
 
 #define MAX_DOCKING_PORTS		240	//256-(0x10), 0x10 is used because the collision surfaces use it as an identifying flag
 
@@ -42,6 +43,10 @@ public:
 	virtual const SystemBody *GetSystemBody() const override { return m_sbody; }
 	virtual void PostLoadFixup(Space *space) override;
 	virtual void NotifyRemoved(const Body* const removedBody) override;
+
+	// 
+	void Explode();
+	virtual bool OnDamage(Object *attacker, float kgDamage, const CollisionContact& contactData) override;
 
 	virtual void SetLabel(const std::string &label) override;
 

@@ -33,7 +33,7 @@ Missile::Missile(const ShipType::Id &shipId, Body *owner, int power)//: Ship(shi
 
 	Disarm();
 
-	GetPropulsion()->SetFuel(1.0);
+	GetPropulsion()->SetFuel(10.0);
 	GetPropulsion()->SetFuelReserve(0.0);
 
 	m_curAICmd = 0;
@@ -176,7 +176,7 @@ void Missile::Explode()
 {
 	Pi::game->GetSpace()->KillBody(this);
 
-	const double damageRadius = 200.0;
+	const double damageRadius = 500.0;
 	const double kgDamage = 10000.0;
 
 	CollisionContact dummy;

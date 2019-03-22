@@ -50,6 +50,7 @@ Game::Game(const SystemPath &path, double time) :
 		throw InvalidGameStartLocation(std::string(buf));
 	}
 	RefCountedPtr<StarSystem> sys = m_galaxy->GetStarSystem(path);
+std::cout << sys->GetName().c_str();
 	if (path.bodyIndex >= sys->GetNumBodies()) {
 		char buf[256];
 		std::sprintf(buf, "Body %d in system <%d,%d,%d : %d ('%s')> does not exist", unsigned(path.bodyIndex),
@@ -61,7 +62,7 @@ Game::Game(const SystemPath &path, double time) :
 
 	Body *b = m_space->FindBodyForPath(&path);
 	assert(b);
-
+std::cout << b->GetLabel().c_str();
 	m_player.reset(new Player("kanara"));
 
 	m_space->AddBody(m_player.get());

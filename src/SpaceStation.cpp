@@ -14,6 +14,7 @@
 #include "Planet.h"
 #include "Player.h"
 #include "Polit.h"
+#include "Sfx.h"
 #include "Ship.h"
 #include "Space.h"
 #include "StringF.h"
@@ -224,6 +225,9 @@ void SpaceStation::InitStation()
 SpaceStation::~SpaceStation()
 {
 	if (m_adjacentCity) delete m_adjacentCity;
+	m_sbody->GetStarSystem()->RemoveSpaceStation(m_sbody);
+	//auto rcm_sbody = RefCountedPtr<SystemBody>(m_sbody);
+	//m_sbody->GetStarSystem()->RemoveBody(rcm_sbody);
 }
 
 void SpaceStation::NotifyRemoved(const Body* const removedBody)
@@ -814,4 +818,24 @@ void SpaceStation::LockPort(const int bay, const bool lockIt)
 			}
 		}
 	}
+}
+
+void SpaceStation::Explode()
+{
+	printf("Space Station is hit and destroyed!\n");
+	Pi::game->GetSpace()->KillBody(this);
+	if (this->GetFrame() == Pi::player->GetFrame()) {
+		SfxManager::AddExplosion(this);
+		Sound::BodyMakeNoise(this, "Explosion_1", 2.0f);
+	}
+}
+
+bool SpaceStation::OnDamage(Object *attacker, float kgDamage, const CollisionContact& contactData)
+{
+	printf("SpaceStation was damaged!\n");
+	if (!IsDead()) {
+		LuaEvent::Queue("onSpaceStationDestroyed", this, dynamic_cast<Body*>(attacker));
+		Explode();
+	}
+	return true;
 }

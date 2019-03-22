@@ -992,7 +992,22 @@ void Space::UpdateBodies()
 		delete killb;
 	}
 	m_killBodies.clear();
-
+//Output("Number of spaceports for %s: %d", m_starSystem->GetName().c_str(), m_starSystem->GetNumSpaceStations());
+//get cydonia in starsystem if there,
+//and if it was there print ref count
+/////
+//if cydonia in star system, print its ref count
+if (m_starSystem)
+	Output("StarSystem name: %s\n", m_starSystem->GetName());
+//for (auto iter : m_starSystem->GetSpaceStations()) {
+//	if( std::string("Cydonia").compare(iter->GetName()) == 0 )
+//		Output("Found Cydonia in current StarSystem\n");
+	//	try {
+	//		Output("Reference count for Cydonia: %d", iter->GetRefCount());
+	//	} catch(...) {
+	//		Output("Exception Raised with iter->GetRefCount() on Cydonia SystemBody object\n");
+	//	};
+//}
 #ifndef NDEBUG
 	m_processingFinalizationQueue = false;
 #endif

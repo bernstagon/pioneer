@@ -227,6 +227,7 @@ public:
 	StarSystem* GetStarSystem() const { return m_system; }
 
 	const std::string &GetSpaceStationType() const { return m_space_station_type; }
+	SystemPath GetSystemPath() { return m_path; }
 
 private:
 	friend class StarSystem;
@@ -324,12 +325,25 @@ public:
 	bool HasSpaceStations() const { return !m_spaceStations.empty(); }
 	Uint32 GetNumSpaceStations() const { return static_cast<Uint32>(m_spaceStations.size()); }
 	IterationProxy<std::vector<SystemBody*> > GetSpaceStations() { return MakeIterationProxy(m_spaceStations); }
+	void RemoveSpaceStation(const SystemBody* station) { 
+														// remove spacestation systembody object
+														assert(station->GetSuperType() == SystemBody::SUPERTYPE_STARPORT); 
+														std::vector<SystemBody*>::iterator newEnd = std::remove(m_spaceStations.begin(),m_spaceStations.end(),station); 
+														m_spaceStations.erase(newEnd, m_spaceStations.end()); 
+														
+														// remove its body object
+													    	
+														}
+
 	const IterationProxy<const std::vector<SystemBody*> > GetSpaceStations() const { return MakeIterationProxy(m_spaceStations); }
 	IterationProxy<std::vector<SystemBody*> > GetStars() { return MakeIterationProxy(m_stars); }
 	const IterationProxy<const std::vector<SystemBody*> > GetStars() const { return MakeIterationProxy(m_stars); }
 	Uint32 GetNumBodies() const { return static_cast<Uint32>(m_bodies.size()); }
 	IterationProxy<std::vector<RefCountedPtr<SystemBody> > > GetBodies() { return MakeIterationProxy(m_bodies); }
 	const IterationProxy<const std::vector<RefCountedPtr<SystemBody> > > GetBodies() const { return MakeIterationProxy(m_bodies); }
+	void RemoveBody(const RefCountedPtr<SystemBody> body) { std::vector<RefCountedPtr<SystemBody>>::iterator newEnd = 
+												std::remove(m_bodies.begin(),m_bodies.end(),body); 
+										   	m_bodies.erase(newEnd, m_bodies.end()); }
 
 	bool IsCommodityLegal(const GalacticEconomy::Commodity t) {
 		return m_commodityLegal[int(t)];

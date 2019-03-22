@@ -574,7 +574,8 @@ void WorldView::UpdateProjectedObjects()
 	matrix3x3d cam_rot = cam_frame->GetOrient();
 
 	// later we might want non-ship enemies (e.g., for assaults on military bases)
-	assert(!Pi::player->GetCombatTarget() || Pi::player->GetCombatTarget()->IsType(Object::SHIP));
+	// TODO:brensig: why is this assert here? Does it serve a useful purpose?
+	//assert(!Pi::player->GetCombatTarget() || Pi::player->GetCombatTarget()->IsType(Object::SHIP));
 
 	// update combat HUD
 	Ship *enemy = static_cast<Ship *>(Pi::player->GetCombatTarget());

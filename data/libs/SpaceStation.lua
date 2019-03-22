@@ -742,6 +742,11 @@ Event.Register("onShipDestroyed", function (ship, _)
 	end
 end)
 
+Event.Register("onSpaceStationDestroyed", function (station, attacker)
+	destroySystem()
+	print("SpaceStation Destroyed")
+end)
+
 Event.Register("onGameEnd", function ()
 	destroySystem()
 

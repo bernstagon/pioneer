@@ -18,7 +18,7 @@
 // LuaObject provides proxy objects and tracking facilities to safely get
 // objects in and out of lua. the basic idea is that for every class you want
 // to expose to lua, you define LuaObject wrapper class that defines the
-// lua name lua name, methods and metamethods for that class. you then call
+// lua name, methods and metamethods for that class. you then call
 // methods on this class to push and pull objects to and from the lua stack
 //
 // Push an object to the Lua stack:
