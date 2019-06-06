@@ -1096,3 +1096,17 @@ void StarSystem::Dump(FILE* file, const char* indent, bool suppressSectorData) c
 	}
 	fprintf(file, "%s}\n", indent);
 }
+
+void StarSystem::RemoveSpaceStation(const SystemBody *station)
+{
+	// remove spacestation systembody object
+	assert(station->GetSuperType() == SystemBody::SUPERTYPE_STARPORT);
+	std::vector<SystemBody*>::iterator newEnd = std::remove(m_spaceStations.begin(),m_spaceStations.end(),station);
+	m_spaceStations.erase(newEnd, m_spaceStations.end());
+}
+
+void StarSystem::RemoveBody(const RefCountedPtr<SystemBody> body)
+{
+	std::vector<RefCountedPtr<SystemBody>>::iterator newEnd = std::remove(m_bodies.begin(),m_bodies.end(),body);
+	m_bodies.erase(newEnd, m_bodies.end());
+}
